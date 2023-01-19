@@ -96,7 +96,7 @@ def get_user_guess(guessed_letters):
 
 def main():
 
-    print('Game has started!')
+    print('Welcome to the Hangman Game! Try to guess the secret word')
 
     word = get_word()
 
@@ -107,7 +107,7 @@ def main():
     while incorrect_guesses < NUM_INCORRECT_GUESSES_ALLOWED:
         print('\n\n')
         print_dashed_word(word, correct_guesses)
-        print(f'Guessed letters: {guessed_letters}')
+        print(f'These are the guessed letters: {guessed_letters}')
 
         guessed_letter = get_user_guess(guessed_letters)
 
@@ -115,7 +115,7 @@ def main():
 
         if guessed_letter not in word:
             incorrect_guesses += 1
-            print(f'You guessed wrong! '
+            print(f'Wrong letter! '
                   f'{NUM_INCORRECT_GUESSES_ALLOWED - incorrect_guesses} guesses'
                   f' left.')
 
