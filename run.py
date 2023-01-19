@@ -100,15 +100,16 @@ def end_game(word, correct_guesses, num_incorrect_guesses):
     if len(set(word)) == len(correct_guesses):
         print('\n')
         print('Congrats, you guessed the word!')
+        print('--------------------------------')
         check_play_again()
     
     if num_incorrect_guesses == NUM_INCORRECT_GUESSES_ALLOWED:
-        print('Sorry, you lost\n')
+        print(f'\nSorry, you lost\n\nThe word was {word}\n')
         check_play_again()
 
 
 def check_play_again():
-    play_gain = input("Enter y to play again or any other key to exit ").strip().lower()
+    play_gain = input("Enter y to play again or any other key to exit: \n").strip().lower()
     if play_gain == 'y':
         main()
     else:
