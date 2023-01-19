@@ -18,8 +18,9 @@ Hangman
     - Word is guessed -- tell them they've won
     - They've reached a preset number of failures
 """
+import stages
 
-NUM_INCORRECT_GUESSES_ALLOWED = 7
+NUM_INCORRECT_GUESSES_ALLOWED = 6
 
 
 def get_word():
@@ -28,14 +29,9 @@ def get_word():
     Returns:
         str - A word.
     """
-    words = [wilderness, yellow, fry, suffer, flood, trick, cave, basin, observe, bells, cannon, somber, brawny, joyous, better, left, 
-             victorious, amused, square, voyage, sheep, unwieldy, chivalrous, true, provide, moaning, comfortable, increase, start, check,
-             charge, stuff, receive, dinner, shivering, stupendous, toy, guttural, pale, vague, cat, scattered, own, lying, art, nation,
-             momentous, fruit, grin, infamous]
-    
 
-    return 'every'
 
+    return 'charge'
 
 def print_dashed_word(word, correct_guesses):
     """Given a word, display dashes representing.
@@ -108,7 +104,7 @@ def main():
     correct_guesses = []
     incorrect_guesses = 0
 
-    while incorrect_guesses <= NUM_INCORRECT_GUESSES_ALLOWED:
+    while incorrect_guesses < NUM_INCORRECT_GUESSES_ALLOWED:
         print('\n\n')
         print_dashed_word(word, correct_guesses)
         print(f'Guessed letters: {guessed_letters}')
@@ -123,7 +119,12 @@ def main():
                   f'{NUM_INCORRECT_GUESSES_ALLOWED - incorrect_guesses} guesses'
                   f' left.')
 
+        if len(correct_guesses) == len(guessed_letter):
+                print('\n')
+                print('Congrats, you guessed the word')          
+
         else:
-           correct_guesses.append(guessed_letter)
+            correct_guesses.append(guessed_letter)
+
 
 main()
