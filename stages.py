@@ -1,46 +1,10 @@
-def get_hangman_stage(NUM_INCORRECT_GUESSES_ALLOWED):
-    max_attempts = 6
+def get_hangman_stage(incorrect_guesses):
+    NUM_INCORRECT_GUESSES_ALLOWED = 6
     stages = ["""
         ------
         |    |
-        |
-        |
-        |
-        |
-        |
-    ------------
-    """, """
-        ------
-        |    |
         |    O
-        |
-        |
-        |
-        |
-    ------------
-    """, """
-        ------
-        |    |
-        |    O
-        |    |
-        |    |
-        |
-        |
-    ------------
-    """, """
-        ------
-        |    |
-        |    O
-        |    |
-        |    |
-        |   /
-        |
-    ------------
-    """, """
-        ------
-        |    |
-        |    O
-        |    |
+        |  --|--
         |    |
         |   / \\
         |
@@ -58,10 +22,46 @@ def get_hangman_stage(NUM_INCORRECT_GUESSES_ALLOWED):
         ------
         |    |
         |    O
-        |  --|--
+        |    |
         |    |
         |   / \\
         |
     ------------
+    """, """
+        ------
+        |    |
+        |    O
+        |    |
+        |    |
+        |   /
+        |
+    ------------
+    """, """
+        ------
+        |    |
+        |    O
+        |    |
+        |    |
+        |
+        |
+    ------------    
+    """, """
+        ------
+        |    |
+        |    O
+        |
+        |
+        |
+        |
+    ------------
+    """, """
+        ------
+        |    |
+        |
+        |
+        |
+        |
+        |
+    ------------
     """]
-    return stages[max_attempts - NUM_INCORRECT_GUESSES_ALLOWED]
+    return stages[NUM_INCORRECT_GUESSES_ALLOWED - incorrect_guesses]
