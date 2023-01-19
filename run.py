@@ -95,15 +95,20 @@ def get_user_guess(guessed_letters):
 
 
 def get_unique_letters(word):
+   
     return "".join(set(word))
 
 
-def end_game(word, guessed_letters):
-    if len(get_unique_letters(word)) == len(guessed_letters):
+def end_game(word, correct_guesses):
+   
+    if len(get_unique_letters(word)) == len(correct_guesses):
         print('\n')
-        print('Congrats, you guessed the word')
-    else:
-        print('Sorry, you lost\n')
+        print(f'{word} Congrats, you guessed the word')
+        exit()
+    
+    #else:
+       #print('Sorry, you lost\n')
+       #exit()
 
 
 def main():
@@ -131,11 +136,12 @@ def main():
             print(f'Wrong letter! '
                   f'{NUM_INCORRECT_GUESSES_ALLOWED - incorrect_guesses} guesses'
                   f' left.')
+            print(stages.get_hangman_stage(incorrect_guesses))    
                  
         else:
             correct_guesses.append(guessed_letter)
             print(stages.get_hangman_stage(incorrect_guesses))
-            end_game(word, guessed_letters)
+        end_game(word, correct_guesses)
 
 
 main()
