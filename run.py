@@ -18,7 +18,7 @@ Hangman
     - Word is guessed -- tell them they've won
     - They've reached a preset number of failures
 """
-import stages
+import random, stages, words
 
 NUM_INCORRECT_GUESSES_ALLOWED = 6
 
@@ -29,9 +29,8 @@ def get_word():
     Returns:
         str - A word.
     """
-
-
-    return 'charge'
+    return random.choice(words)
+    
 
 def print_dashed_word(word, correct_guesses):
     """Given a word, display dashes representing.
