@@ -94,21 +94,24 @@ def get_user_guess(guessed_letters):
     return user_guess
 
 
-def get_unique_letters(word):
-   
-    return "".join(set(word))
-
-
-def end_game(word, correct_guesses):
-   
-    if len(get_unique_letters(word)) == len(correct_guesses):
+def end_game(word, correct_guesses, incorrect_guesses):
+ 
+    if len(set(word)) == len(correct_guesses):
         print('\n')
-        print(f'{word} Congrats, you guessed the word')
-        exit()
+        print('Congrats, you guessed the word!')
+        check_play_again()
     
-    #else:
-       #print('Sorry, you lost\n')
-       #exit()
+    if incorrect_guesses == NUM_INCORRECT_GUESSES_ALLOWED:
+       print('Sorry, you lost\n')
+       check_play_again()
+
+
+def check_play_again():
+    play_gain = input("Enter y to play again or any other key to exit ").strip().lower()
+    if play_gain == 'y':
+        main()
+    else:
+        exit()
 
 
 def main():
@@ -120,12 +123,12 @@ def main():
     print('Welcome to the Hangman Game! Try to guess the secret word')
 
     word = get_word()
-
+    print('\n')
+    print_dashed_word(word, correct_guesses)
+    
     while incorrect_guesses < NUM_INCORRECT_GUESSES_ALLOWED:
+ 
         print('\n')
-        print_dashed_word(word, correct_guesses)
-        print('\n')
-        print(f'These are the guessed letters: {guessed_letters}')
 
         guessed_letter = get_user_guess(guessed_letters)
 
@@ -135,13 +138,14 @@ def main():
             incorrect_guesses += 1
             print(f'Wrong letter! '
                   f'{NUM_INCORRECT_GUESSES_ALLOWED - incorrect_guesses} guesses'
-                  f' left.')
-            print(stages.get_hangman_stage(incorrect_guesses))    
+                  f' left.')   
                  
         else:
             correct_guesses.append(guessed_letter)
-            print(stages.get_hangman_stage(incorrect_guesses))
-        end_game(word, correct_guesses)
+        print(stages.get_hangman_stage(incorrect_guesses))
+        print_dashed_word(word, correct_guesses)
+        print(f'These are the guessed letters: {guessed_letters}')
+        end_game(word, correct_guesses, incorrect_guesses)
 
 
 main()
