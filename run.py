@@ -18,7 +18,8 @@ Hangman
     - Word is guessed -- tell them they've won
     - They've reached a preset number of failures
 """
-import random, stages, words
+import random, stages
+from words import words
 
 NUM_INCORRECT_GUESSES_ALLOWED = 6
 
@@ -30,7 +31,7 @@ def get_word():
         str - A word.
     """
     return random.choice(words)
-    
+
 
 def print_dashed_word(word, correct_guesses):
     """Given a word, display dashes representing.
@@ -49,6 +50,7 @@ def print_dashed_word(word, correct_guesses):
             dashed_word += ' _'
 
     print(dashed_word)
+
 
 def get_user_guess(guessed_letters):
     """Ask the user for a letter and validate their input.
@@ -93,16 +95,16 @@ def get_user_guess(guessed_letters):
     return user_guess
 
 
-def end_game(word, correct_guesses, incorrect_guesses):
+def end_game(word, correct_guesses, num_incorrect_guesses):
  
     if len(set(word)) == len(correct_guesses):
         print('\n')
         print('Congrats, you guessed the word!')
         check_play_again()
     
-    if incorrect_guesses == NUM_INCORRECT_GUESSES_ALLOWED:
-       print('Sorry, you lost\n')
-       check_play_again()
+    if num_incorrect_guesses == NUM_INCORRECT_GUESSES_ALLOWED:
+        print('Sorry, you lost\n')
+        check_play_again()
 
 
 def check_play_again():
@@ -117,7 +119,7 @@ def main():
 
     guessed_letters = []
     correct_guesses = []
-    incorrect_guesses = 0
+    num_incorrect_guesses = 0
 
     print('Welcome to the Hangman Game! Try to guess the secret word')
 
@@ -125,7 +127,7 @@ def main():
     print('\n')
     print_dashed_word(word, correct_guesses)
     
-    while incorrect_guesses < NUM_INCORRECT_GUESSES_ALLOWED:
+    while num_incorrect_guesses < NUM_INCORRECT_GUESSES_ALLOWED:
  
         print('\n')
 
@@ -134,17 +136,17 @@ def main():
         guessed_letters.append(guessed_letter)
 
         if guessed_letter not in word:
-            incorrect_guesses += 1
+            num_incorrect_guesses += 1
             print(f'Wrong letter! '
-                  f'{NUM_INCORRECT_GUESSES_ALLOWED - incorrect_guesses} guesses'
+                  f'{NUM_INCORRECT_GUESSES_ALLOWED - num_incorrect_guesses} guesses'
                   f' left.')   
                  
         else:
             correct_guesses.append(guessed_letter)
-        print(stages.get_hangman_stage(incorrect_guesses))
+        print(stages.get_hangman_stage(num_incorrect_guesses))
         print_dashed_word(word, correct_guesses)
         print(f'These are the guessed letters: {guessed_letters}')
-        end_game(word, correct_guesses, incorrect_guesses)
+        end_game(word, correct_guesses, num_incorrect_guesses)
 
 
 main()
