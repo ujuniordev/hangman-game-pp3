@@ -73,7 +73,7 @@ def get_user_guess(guessed_letters):
         # Where you'll want to compare the input to something and the
         # said comparison is not case sensitive, then convert to the target
         # case
-        user_guess = input('\nGuess a letter. ').strip().lower()
+        user_guess = input('\nGuess a letter. \n').strip().lower()
 
         # 2. Check whether input violates a validation rule.
         # Do this for all your rules in separate if statements.
@@ -98,8 +98,7 @@ def get_user_guess(guessed_letters):
 def end_game(word, correct_guesses, num_incorrect_guesses):
  
     if len(set(word)) == len(correct_guesses):
-        print('\n')
-        print('Congrats, you guessed the word!')
+        print('\nCongrats, you guessed the word!')
         print('--------------------------------')
         check_play_again()
     
