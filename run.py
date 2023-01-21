@@ -60,7 +60,7 @@ def print_dashed_word(word, correct_guesses):
     """
 
     dashed_word = ""
-    
+
     # Iterate the letters of the word to print either the guessed letter
     # or the dash
     for letter in word:
@@ -95,7 +95,7 @@ def get_user_guess(guessed_letters):
         # Stores the input letter in user_guess variable
         # Strip the inputs to avoid blank spaces
         # Convert the letters to lower case
-        user_guess = input("\nGuess a letter. \n => ").strip().lower()
+        user_guess = input("\nEnter a letter: \n => ").strip().lower()
 
         # Checks if the input is only an alphabetical letter
         # If not, print the message to the user and continue to the next action
@@ -162,7 +162,8 @@ def check_play_again():
     # again by pressing y to yes or any other key to no
     # If yes then the game starts again
     # If no, then exit
-    play_gain = input("Enter y to play again or any other key to exit: \n => ").strip().lower()
+    play_gain = input("Enter y to play again or any "
+                      "other key to exit: \n => ").strip().lower()
 
     if play_gain == "y":
         main(initial_play=False)
@@ -184,7 +185,7 @@ def main(initial_play=True):
 
     # Initial message
     if initial_play:
-        print("\nWelcome to the Hangman Game! Try to guess the secret word")
+        print("\nWelcome to the Hangman Game! \nTry to guess the secret word")
 
     # Start game, gets the random word and prints the dashes or
     # the correct letters
