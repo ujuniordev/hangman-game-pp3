@@ -1,5 +1,14 @@
-def get_hangman_stage(incorrect_guesses):
-    NUM_INCORRECT_GUESSES_ALLOWED = 6
+def get_hangman_stage(incorrect_guesses, NUM_INCORRECT_GUESSES_ALLOWED):
+    """ Contains the list of the hangman stages to be displayed
+        acoording to the remaining chances
+
+        Args: incorrect_guesses - Number of incorrect attempts
+
+        Return: str - A string containing the representation of the hangman
+                      based on the index and according to the remaining
+                      lifes/chances
+    """
+
     stages = ["""
         ------
         |    |
@@ -64,4 +73,5 @@ def get_hangman_stage(incorrect_guesses):
         |
     ------------
     """]
+
     return stages[NUM_INCORRECT_GUESSES_ALLOWED - incorrect_guesses]

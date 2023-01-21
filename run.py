@@ -29,7 +29,8 @@ The Hangman game
   - If the user says no then the game ends and exit.
 """
 # Import the random function + stages file + words list
-import random, stages
+import random
+import stages
 from words import words
 
 NUM_INCORRECT_GUESSES_ALLOWED = 6
@@ -52,10 +53,13 @@ def print_dashed_word(word, correct_guesses):
         word: str - The random word.
         correct_guesses: list of str - The list where the correct guesses'
         letters are kept.
+
+    Returns:
+        str - The dashed word or the guessed letter if it is in the word
     """
 
     dashed_word = ''
-    # Iterate the letters in the word to print either the guessed letter 
+    # Iterate the letters of the word to print either the guessed letter
     # or the dash
     for letter in word:
         if letter in correct_guesses:
@@ -126,12 +130,15 @@ def end_game(word, correct_guesses, num_incorrect_guesses):
         boolean: True if the user guessed the word or false if not and
                  the maximal number of attempts were reached.
     """
-
+    # First remove the duplicated letter by checking the length of the word as a set
+    # Then check if the length of the word is equal to the length of the correct guesses list
+    # If true then print the success message and call the play again function
     if len(set(word)) == len(correct_guesses):
         print('\nCongrats, you guessed the word!')
         print('--------------------------------')
         check_play_again()
-
+    # Check if the number of incorrect attempts is equal to the maximum number of allowed attempts
+    # If true then print failure message and call the play again function
     if num_incorrect_guesses == NUM_INCORRECT_GUESSES_ALLOWED:
         print(f'\nSorry, you lost\n\nThe word was {word}\n')
         check_play_again()
@@ -145,6 +152,10 @@ def check_play_again():
         str - The lowercase letter y for yes/play again or any
               other letter to exit the game, without any spaces.
     """
+    # In the end of the game ask the user if he wants to play again by pressing y
+    # to yes or any other key to no
+    # If yes then the game starts again
+    # If no, then exit
     play_gain = input("Enter y to play again or any other key to exit: \n").strip().lower()
     if play_gain == 'y':
         main()
@@ -188,13 +199,13 @@ def main():
 
         if guessed_letter not in word:
             num_incorrect_guesses += 1
-            print(f'Wrong letter! '
+            print(f'\nWrong letter! '
                   f'{NUM_INCORRECT_GUESSES_ALLOWED - num_incorrect_guesses} guesses'
                   f' left.')
 
         else:
             correct_guesses.append(guessed_letter)
-        print(stages.get_hangman_stage(num_incorrect_guesses))
+        print(stages.get_hangman_stage(num_incorrect_guesses, NUM_INCORRECT_GUESSES_ALLOWED))
         print_dashed_word(word, correct_guesses)
         print(f'These are the guessed letters: {guessed_letters}')
         end_game(word, correct_guesses, num_incorrect_guesses)
