@@ -1,5 +1,4 @@
-
-# List of the words that are imported to the run.py file and ramdomly used
+""" List of the words that are imported to the run.py file and ramdomly used """
 
 words = ["wilderness", "yellow", "fry", "suffer", "flood", "trick",
          "cave", "basin", "observe", "bells", "cannon", "somber",
