@@ -13,7 +13,7 @@ def get_hangman_stage(incorrect_guesses, NUM_INCORRECT_GUESSES_ALLOWED):
     """
 
     # The stages are the result of the number of incorrect
-    # guesses - incorrect_guesses 
+    # guesses - incorrect_guesses
     # Depending on the result, the index of the stages list
     # will be displayed to the user
     stages = ["""
@@ -60,7 +60,7 @@ def get_hangman_stage(incorrect_guesses, NUM_INCORRECT_GUESSES_ALLOWED):
         |    |
         |
         |
-    ------------    
+    ------------
     """, """
         ------
         |    |
