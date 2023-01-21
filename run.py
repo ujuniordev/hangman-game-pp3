@@ -12,8 +12,8 @@ The Hangman game
       and ask them to try again, no penalties for that.
     - If the user had already guessed the letter before, print a message
       and give him another chance, no penalties for that.
-    - If the user enters a letter he hadn't guessed before, check whether
-      it's in the word, reveal it, and display the list of guessed letters.
+    - If the user enters a letter he hadn"t guessed before, check whether
+      it"s in the word, reveal it, and display the list of guessed letters.
     - If the letter is not in the word, display the list of letters that
       were entered, reduce one life from the 6 chances counter
       and display the remaining chances.
@@ -52,25 +52,25 @@ def print_dashed_word(word, correct_guesses):
 
     Args:
         word: str - The random word.
-        correct_guesses: list of str - The list where the correct guesses'
+        correct_guesses: list of str - The list where the correct guesses"
         letters are kept.
 
     Returns:
         str - The dashed word or the guessed letter if it is in the word
     """
 
-    dashed_word = ''
+    dashed_word = ""
     
     # Iterate the letters of the word to print either the guessed letter
     # or the dash
     for letter in word:
         if letter in correct_guesses:
-            dashed_word += f' {letter}'
+            dashed_word += f" {letter}"
         else:
-            dashed_word += ' _'
+            dashed_word += " _"
 
     print(dashed_word)
-    print('\n')
+    print("\n")
 
 
 def get_user_guess(guessed_letters):
@@ -95,19 +95,19 @@ def get_user_guess(guessed_letters):
         # Stores the input letter in user_guess variable
         # Strip the inputs to avoid blank spaces
         # Convert the letters to lower case
-        user_guess = input('\nGuess a letter. \n => ').strip().lower()
+        user_guess = input("\nGuess a letter. \n => ").strip().lower()
 
         # Checks if the input is only an alphabetical letter
         # If not, print the message to the user and continue to the next action
         if len(user_guess) > 1 or not user_guess.isalpha():
-            print('Please enter a valid letter.')
+            print("Please enter a valid letter.")
             continue
 
-        # Check if it's the first time the user enters this letter
+        # Check if it"s the first time the user enters this letter
         # If not, prints the message to the user and continue to the
         # next action
         if user_guess in guessed_letters:
-            print('You\'ve already guessed that letter.')
+            print("You\"ve already guessed that letter.")
             continue
 
         # If we get here it means the letter is valid and can be used
@@ -137,15 +137,15 @@ def end_game(word, correct_guesses, num_incorrect_guesses):
     # the correct guesses list
     # If true then print the success message and call the play again function
     if len(set(word)) == len(correct_guesses):
-        print('\nCongrats, you guessed the word!')
-        print('--------------------------------')
+        print("\nCongrats, you guessed the word!")
+        print("--------------------------------")
         check_play_again()
 
     # Check if the number of incorrect attempts is equal to the maximum
     # number of allowed attempts
     # If true then print failure message and call the play again function
     if num_incorrect_guesses == NUM_INCORRECT_GUESSES_ALLOWED:
-        print(f'\nSorry, you lost\n\nThe word was {word}\n')
+        print(f"\nSorry, you lost\n\nThe word was {word}\n")
         check_play_again()
 
 
@@ -164,7 +164,7 @@ def check_play_again():
     # If no, then exit
     play_gain = input("Enter y to play again or any other key to exit: \n => ").strip().lower()
 
-    if play_gain == 'y':
+    if play_gain == "y":
         main(initial_play=False)
     else:
         exit()
@@ -184,12 +184,12 @@ def main(initial_play=True):
 
     # Initial message
     if initial_play:
-        print('\nWelcome to the Hangman Game! Try to guess the secret word')
+        print("\nWelcome to the Hangman Game! Try to guess the secret word")
 
     # Start game, gets the random word and prints the dashes or
     # the correct letters
     word = get_word()
-    print('\n')
+    print("\n")
     print_dashed_word(word, correct_guesses)
 
     while num_incorrect_guesses < NUM_INCORRECT_GUESSES_ALLOWED:
@@ -200,19 +200,19 @@ def main(initial_play=True):
 
         if guessed_letter not in word:
             num_incorrect_guesses += 1
-            print(f'\nWrong letter! '
-                  f'{NUM_INCORRECT_GUESSES_ALLOWED - num_incorrect_guesses}'
-                  f'guesses'
-                  f' left.')
+            print(f"\nWrong letter! "
+                  f"{NUM_INCORRECT_GUESSES_ALLOWED - num_incorrect_guesses}"
+                  f"guesses"
+                  f" left.")
 
         else:
             correct_guesses.append(guessed_letter)
         print(stages.get_hangman_stage(num_incorrect_guesses,
                                        NUM_INCORRECT_GUESSES_ALLOWED))
         print_dashed_word(word, correct_guesses)
-        print(f'These are the guessed letters: {guessed_letters}')
+        print(f"These are the guessed letters: {guessed_letters}")
         end_game(word, correct_guesses, num_incorrect_guesses)
-        print('\n')
+        print("\n")
 
 
 main()
