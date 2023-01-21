@@ -1,23 +1,34 @@
 """
-Hangman
+The Hangman game
 
-1 When user starts game, computer chooses a random word from a list.
+1 - As soon as the game starts the computer picks a random word from the
+    list of words.
 
-2 Computer will display dashes representing the word
+2 - The computer displays the representation of the word in dashes.
+    Each dash is a letter of the word.
 
-3 User will get a chance to guess 1 letter at a time.
-    - If they enter something that's not a letter, print an error
-      and ask them to try again
-    - If they've guessed the letter before, tell them they have
-      and give them another chance
-    - If they guess a letter they haven't guessed before, check whether
-      it's in the word, and reveal it.
-      Also show them the list of letters they've already guessed
+3 - The user has 6 chances to guess the word by trying 1 letter at a time.
+    - If the user enters an invalid character, print an error message
+      and ask them to try again, no penalties for that.
+    - If the user had already guessed the letter before, print a message
+      and give him another chance, no penalties for that.
+    - If the user enters a letter he hadn't guessed before, check whether
+      it's in the word, reveal it, and display the list of guessed letters.
+    - If the letter is not in the word, display the list of letters that
+      were entered, reduce one life from the 6 chances counter
+      and display the remaining chances.
 
-4 Repeat 3 until the game is over. Game is over when:
-    - Word is guessed -- tell them they've won
-    - They've reached a preset number of failures
+4 - Repeat 3 until the remaining chances are over or when the word is guessed.
+    - If the word is guessed, display the success/victory message and ask if
+      the user wants to play again or exit the game.
+    - If the chances were over, display the game over message ask if the user
+      wants to play again or exit the game.
+
+5 - If after the end of the game the user says he wants to play again,
+    start 1 again.
+  - If the user says no then the game ends and exit.
 """
+# Import the random function + stages file + words list
 import random, stages
 from words import words
 
@@ -25,24 +36,27 @@ NUM_INCORRECT_GUESSES_ALLOWED = 6
 
 
 def get_word():
-    """Return a random word from the word bank.
+    """ Gets a random word from the words.py file.
 
     Returns:
-        str - A word.
+        str - Word.
     """
     return random.choice(words)
 
 
 def print_dashed_word(word, correct_guesses):
-    """Given a word, display dashes representing.
+    """ Based on the random word, displays the corresponding dashes of the
+        legth of the word.
 
     Args:
-        word: str - The word to display.
-        correct_guesses: list of str - List with correctly guessed letters.
+        word: str - The random word.
+        correct_guesses: list of str - The list where the correct guesses'
+        letters are kept.
     """
 
     dashed_word = ''
-
+    # Iterate the letters in the word to print either the guessed letter 
+    # or the dash
     for letter in word:
         if letter in correct_guesses:
             dashed_word += f' {letter}'
@@ -53,18 +67,20 @@ def print_dashed_word(word, correct_guesses):
 
 
 def get_user_guess(guessed_letters):
-    """Ask the user for a letter and validate their input.
+    """ Once the game has started, this function request the user for a letter
+        and makes the character validation.
 
     Validations:
-        - Guess should be a single letter in the roman alphabet.
-        - Letters should not have been guessed previously in the game.
+        - Only a single roman alphabet letter.
+        - Unique letters, meaning that they should not have been used before
+          in the game.
 
     Args:
         guessed_letters: list of str - List of letters previously guessed.
 
     Returns:
-        str - The user's guess, converted to lowercase and with any leading/
-        trailing spaces removed.
+        str - The letter the user added in a lower case format with spaces
+        removed.
     """
 
     # Wrap your input request logic in a while True block.
@@ -96,18 +112,39 @@ def get_user_guess(guessed_letters):
 
 
 def end_game(word, correct_guesses, num_incorrect_guesses):
- 
+    """ Check if the user guessed the word or not and displays the result
+        to the user
+
+    Args:
+        word: str - The random word.
+        correct_guesses: list of str - The list of letters with the
+                         correct guesses.
+        num_incorrect_guesses: int - The incremental number of
+                               incorrect guesses.
+
+    Returns:
+        boolean: True if the user guessed the word or false if not and
+                 the maximal number of attempts were reached.
+    """
+
     if len(set(word)) == len(correct_guesses):
         print('\nCongrats, you guessed the word!')
         print('--------------------------------')
         check_play_again()
-    
+
     if num_incorrect_guesses == NUM_INCORRECT_GUESSES_ALLOWED:
         print(f'\nSorry, you lost\n\nThe word was {word}\n')
         check_play_again()
 
 
 def check_play_again():
+    """ After the end game result is displayed, check if the user
+        wants to play again or not.
+
+    Returns:
+        str - The lowercase letter y for yes/play again or any
+              other letter to exit the game, without any spaces.
+    """
     play_gain = input("Enter y to play again or any other key to exit: \n").strip().lower()
     if play_gain == 'y':
         main()
@@ -116,6 +153,20 @@ def check_play_again():
 
 
 def main():
+    """ Check if the user guessed the word or not and displays the result
+        to the user
+
+    Args:
+        word: str - The random word.
+        correct_guesses: list of str - The list of letters with the
+                         correct guesses.
+        num_incorrect_guesses: int - The incremental number of
+                               incorrect guesses.
+
+    Returns:
+        boolean: True if the user guessed the word or false if not and
+                 the maximal number of attempts were reached.
+    """
 
     guessed_letters = []
     correct_guesses = []
@@ -126,9 +177,9 @@ def main():
     word = get_word()
     print('\n')
     print_dashed_word(word, correct_guesses)
-    
+
     while num_incorrect_guesses < NUM_INCORRECT_GUESSES_ALLOWED:
- 
+
         print('\n')
 
         guessed_letter = get_user_guess(guessed_letters)
@@ -139,8 +190,8 @@ def main():
             num_incorrect_guesses += 1
             print(f'Wrong letter! '
                   f'{NUM_INCORRECT_GUESSES_ALLOWED - num_incorrect_guesses} guesses'
-                  f' left.')   
-                 
+                  f' left.')
+
         else:
             correct_guesses.append(guessed_letter)
         print(stages.get_hangman_stage(num_incorrect_guesses))
