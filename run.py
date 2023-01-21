@@ -131,7 +131,7 @@ def end_game(word, correct_guesses, num_incorrect_guesses):
         boolean: True if the user guessed the word or false if not and
                  the maximal number of attempts were reached.
     """
-    
+
     # First remove the duplicated letter by checking the length of the word
     # as a set then check if the length of the word is equal to the length of
     # the correct guesses list
@@ -140,7 +140,7 @@ def end_game(word, correct_guesses, num_incorrect_guesses):
         print('\nCongrats, you guessed the word!')
         print('--------------------------------')
         check_play_again()
-    
+
     # Check if the number of incorrect attempts is equal to the maximum
     # number of allowed attempts
     # If true then print failure message and call the play again function
@@ -157,19 +157,20 @@ def check_play_again():
         str - The lowercase letter y for yes/play again or any
               other letter to exit the game, without any spaces.
     """
-    
+
     # In the end of the game ask the user if he wants to play
     # again by pressing y to yes or any other key to no
     # If yes then the game starts again
     # If no, then exit
-    play_gain = input("Enter y to play again or any other key to exit: \n").strip().lower()
+    play_gain = input("Enter y to play again or any other key to exit: \n => ").strip().lower()
+
     if play_gain == 'y':
-        main()
+        main(initial_play=False)
     else:
         exit()
 
 
-def main():
+def main(initial_play=True):
     """ Run the game
     """
 
@@ -182,7 +183,8 @@ def main():
     num_incorrect_guesses = 0
 
     # Initial message
-    print('Welcome to the Hangman Game! Try to guess the secret word')
+    if initial_play:
+        print('\nWelcome to the Hangman Game! Try to guess the secret word')
 
     # Start game, gets the random word and prints the dashes or
     # the correct letters

@@ -1,3 +1,4 @@
+""" """
 def get_hangman_stage(incorrect_guesses, NUM_INCORRECT_GUESSES_ALLOWED):
     """ Contains the list of the hangman stages to be displayed
         acoording to the remaining chances
