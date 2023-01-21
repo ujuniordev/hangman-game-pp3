@@ -202,8 +202,7 @@ def main(initial_play=True):
             num_incorrect_guesses += 1
             print(f"\nWrong letter! "
                   f"{NUM_INCORRECT_GUESSES_ALLOWED - num_incorrect_guesses}"
-                  f"guesses"
-                  f" left.")
+                  f" guesses left.")
 
         else:
             correct_guesses.append(guessed_letter)
