@@ -4,6 +4,7 @@
 ![Responsive image](assets/images/resposiveness.png)
 
 [Link to Heroku app](https://ujuniordev-hangman-pp3.herokuapp.com/)
+
 [Link to GitHub repository](https://github.com/ujuniordev/hangman-game-pp3)
 
 Would you like to have some fun by playing the classic word guessing game? 
